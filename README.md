@@ -21,8 +21,10 @@ Or install it yourself as:
 ## Usage
 
     client = YelloyelloApi::Client.new(username, password)
-    results = client.connection.get('places/search.json', search: {q: 'restaurant'})
+    results = client.get('places/search.json', search: {q: 'restaurant'})
     results.body.places.first.name # => "Some name"
+
+    new_place = client.post('places.json', place: {name: 'Restaurant Q'})
 
 ## Development
 
