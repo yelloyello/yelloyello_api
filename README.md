@@ -1,6 +1,9 @@
 # YelloyelloApi
 
-This package is in beta and for private use only. Everything might change :)
+For more information see the [YelloYello API Docs](http://www.yelloyello.com/api).
+Notice that v1 of the YelloYello API is under development. Everything might change :)
+
+To request access to the YelloYello API contact info@yelloyello.com.
 
 ## Installation
 
@@ -20,11 +23,15 @@ Or install it yourself as:
 
 ## Usage
 
-    client = YelloyelloApi::Client.new(username, password)
+    client = YelloyelloApi::Client.new(token: 'your_token')
     results = client.get('places/search.json', search: {q: 'restaurant'})
     results.body.places.first.name # => "Some name"
 
     new_place = client.post('places.json', place: {name: 'Restaurant Q'})
+
+Optional arguments:
+
+    client = YelloyelloApi::Client.new(token: 'your_token', host: 'some.test.host', version: 'v2')
 
 ## Development
 

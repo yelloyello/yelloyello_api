@@ -8,26 +8,26 @@ module YelloyelloApi
 
   class Client
 
-    attr_accessor :api_host, :api_version, :api_key, :connection
+    attr_accessor :api_host, :api_version, :connection
 
     extend Forwardable
-    delegate [:get, :post] => :connection
+    delegate [:get, :put, :patch, :post] => :connection
 
-    def initialize(username, password)
-      @api_key = api_key
-      @api_host = 'www.yelloyello.com'
-      @api_version = 'v1'
-      @username = username
-      @password = password
+    def initialize(options = {})
+      @api_host = options[:host] || 'www.yelloyello.com'
+      @api_version = options[:version] || 'v1'
+      # @username = options[:username]
+      # @password = options[:password]
+      @token = options[:token]
     end
 
   private
     def connection
       # More info: http://www.bjoernrochel.de/2013/02/09/oh-my-faraday/
       @connection ||= Faraday.new(url: api_url, headers: { accept: 'application/json' }) do |builder|
-        builder.basic_auth @username, @password
+        # builder.basic_auth @username, @password
+        builder.token_auth @token
         # builder.request :basic_auth, username, password
-        # builder.params = { auth_token: api_key }
 
         builder.request   :json
         # builder.request   :basic_auth, options[:user], options[:password]
